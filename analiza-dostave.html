@@ -375,22 +375,22 @@
       <span>Povjerljivo</span>
     </div>
     <h1>PickPack vs. <em>direktna dostava</em></h1>
-    <p class="header-sub">Usporedba stvarnih troškova i profita: PickPack posrednik vs. direktni ugovori s dostavnim službama.</p>
+    <p class="header-sub">PickPack vs. Overseas vs. Hrvatska pošta — profit po paketu i ukupno.</p>
   </div>
 
   <!-- Inputs -->
   <div class="section">
     <div class="section-label">Parametri simulacije</div>
     <div class="simulator">
-      <div class="sim-row">
-        <label>Prosječna košarica</label>
-        <input type="range" id="sl-aov" min="20" max="80" step="0.5" value="35.85">
-        <span id="vl-aov">35.85 €</span>
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:1rem;">
+        Košarica: <strong style="color:var(--text)">35.85 €</strong> <span style="color:var(--text-faint)">(fiksno, uključuje dostavu)</span>
       </div>
       <div class="sim-row">
         <label>Paketa / 4 mjeseca</label>
-        <input type="range" id="sl-pkts" min="1000" max="15000" step="50" value="5051">
-        <span id="vl-pkts">5 051</span>
+        <input type="range" id="sl-pkts" min="1000" max="15000" step="50" value="5051" oninput="syncInput(this.value)">
+        <input type="number" id="inp-pkts" value="5051" min="1" max="99999"
+          style="width:80px;padding:4px 8px;border:1px solid var(--border);border-radius:4px;font-family:'DM Mono',monospace;font-size:13px;background:var(--surface);color:var(--text);"
+          oninput="syncSlider(this.value)">
       </div>
     </div>
   </div>
@@ -413,73 +413,15 @@
     <div class="bar-section" id="bar-section"></div>
   </div>
 
-  <!-- Bonitet -->
-  <div class="section">
-    <div class="section-label">Strateški faktor — bonitet i kreditna sposobnost</div>
-    <div class="bonitet-box">
-      <h3>PickPack — skup posrednik bez bonitetne vrijednosti</h3>
-      <p>Rad preko PickPacka znači <strong>nula prometa na vlastitoj firmi</strong> — prihodi ne prolaze kroz tvoj račun, nema vidljivosti prema bankama i FINA-i, nema kreditne sposobnosti.</p>
-      <p>Direktni rad gradi <strong>financijsku historiju</strong> — promet, PDV prijave, bonitet. Osnova za kredit, leasing i poslovne garancije.</p>
-      <div class="bonitet-grid">
-        <div class="bonitet-item">
-          <div class="bonitet-item-label">Rad preko PickPacka</div>
-          <div class="bonitet-item-val">Promet = 0 na firmi → bonitet: nizak</div>
-        </div>
-        <div class="bonitet-item">
-          <div class="bonitet-item-label">Direktni rad</div>
-          <div class="bonitet-item-val">Promet vidljiv → bonitet raste</div>
-        </div>
-        <div class="bonitet-item">
-          <div class="bonitet-item-label">Kreditna sposobnost</div>
-          <div class="bonitet-item-val">Bez prometa — teško dobiti kredit</div>
-        </div>
-        <div class="bonitet-item">
-          <div class="bonitet-item-label">Dugoročni cilj</div>
-          <div class="bonitet-item-val">Financijska neovisnost i rast</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Conclusion -->
   <div class="section">
     <div class="section-label">Zaključak</div>
     <div class="conclusion">
       <h3>Direktni ugovor isplativiji — financijski i strateški</h3>
-      <p>PickPack naplaćuje <strong>4.46 € po paketu</strong> bez PDV-a — ali uz PDV efekt na prihod (25%) direktni kanali isplativiji su i profitabilnije. Uz to, PickPack ima <strong>najviši povrat (17.54%)</strong> — svaki vraćeni paket gubi poštarinu i marketing trošak.</p>
-      <p><strong>Hrvatska pošta</strong> — najmanji povrat (12.9%), manje izgubljenih troškova. <strong>Overseas</strong> — najjeftinija poštarina (3.48 € s PDV-om). Oba kanala grade bonitet firme.</p>
+      <p>PickPack: veći profit zbog PDV oslobođenja, ali <strong>nula prometa na firmi</strong> → nema boniteta, nema kredita. Direktni rad gradi financijsku historiju firme.</p>
     </div>
   </div>
 
-  <!-- Assumptions -->
-  <div class="section">
-    <div class="section-label">Pretpostavke modela</div>
-    <div class="assumptions">
-      <table>
-        <thead>
-          <tr>
-            <th>Parametar</th>
-            <th>Vrijednost</th>
-            <th>Napomena</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Prosječna košarica</td><td class="mono">35.85 €</td><td>Prilagodljivo sliderom</td></tr>
-          <tr><td>Dostava kupcu</td><td class="mono">5.99 € (99% narudžbi)</td><td>1% besplatne dostave zanemareno</td></tr>
-          <tr><td>Marketing trošak</td><td class="mono">33.33% od prihoda</td><td>Gubi se i na vraćenim paketima</td></tr>
-          <tr><td>Nabavna roba</td><td class="mono">28.21% od prodajne cijene</td><td>Vraća se na zalihu — nije izgubljena</td></tr>
-          <tr><td>PDV (direktni rad)</td><td class="mono">25% na prihod i poštarinu</td><td>Neto prihod = bruto / 1.25</td></tr>
-          <tr><td>PDV (PickPack)</td><td class="mono">0%</td><td>Nije PDV obveznik u tom kanalu</td></tr>
-          <tr><td>PickPack — povrat</td><td class="mono">17.54%</td><td>Viši od direktnih kanala</td></tr>
-          <tr><td>Overseas — povrat</td><td class="mono">15.11%</td><td>—</td></tr>
-          <tr><td>Hrvatska pošta — povrat</td><td class="mono">12.90%</td><td>Najmanji povrat</td></tr>
-          <tr><td>PickPack — poštarina</td><td class="mono">4.46 €</td><td>Bez PDV-a</td></tr>
-          <tr><td>Overseas — poštarina</td><td class="mono">2.78 € + 25% PDV = 3.48 €</td><td>Najjeftinija</td></tr>
-          <tr><td>HP — poštarina</td><td class="mono">3.50 € + 25% PDV = 4.38 €</td><td>—</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
 
   <div class="footer">
     <span>Povjerljivo — samo za internu upotrebu</span>
@@ -500,19 +442,23 @@ const scenarios = [
 ];
 
 function calc(s, aov, pkts) {
-  const pdvDiv = 1 + s.pdvPrihod;
-  const aovNeto = aov / pdvDiv;
-  const dostNeto = DOSTAVA_KUPCU / pdvDiv;
-  const prihodNeto = aovNeto + dostNeto;
+  // Kosarca je 35.85€ i ukljucuje sve (dostava je vec unutra)
+  // PDV se odbija samo kod direktnog rada
+  const pdvOdbitak = s.pdvPrihod > 0 ? aov * (s.pdvPrihod / (1 + s.pdvPrihod)) : 0;
+  const prihodNeto = aov - pdvOdbitak; // sto tebi ostaje po paketu
   const postarinaBrutto = s.postarina * (1 + s.pdvPost);
   const isporucenih = pkts * (1 - s.povrat);
+  // Prihod samo od isporucenih paketa
   const prihodiUkupno = isporucenih * prihodNeto;
-  const marketingTrosak = prihodiUkupno * MARKETING;
-  const nabavnaTrosak = isporucenih * aovNeto * NABAVNA;
+  // Marketing % od kosarice (brutto) za SVE narudzbe
+  const marketingTrosak = pkts * aov * MARKETING;
+  // Nabavna samo za isporucene (vracena roba ide nazad na zalihu)
+  const nabavnaTrosak = isporucenih * aov * NABAVNA;
+  // Postarina za sve pakete
   const postarinaTrosak = pkts * postarinaBrutto;
   const profitUkupno = prihodiUkupno - marketingTrosak - nabavnaTrosak - postarinaTrosak;
   return {
-    aovNeto, dostNeto, prihodNeto, postarinaBrutto,
+    prihodNeto, postarinaBrutto,
     profitPoPaketu: profitUkupno / pkts,
     profitUkupno,
     isporucenih: Math.round(isporucenih),
@@ -524,11 +470,20 @@ function calc(s, aov, pkts) {
 function fmt2(n) { return n.toFixed(2); }
 function fmtEur(n) { return (n >= 0 ? '+' : '') + Math.round(n).toLocaleString('hr') + ' €'; }
 
+function syncInput(val) {
+  document.getElementById('inp-pkts').value = val;
+  render();
+}
+function syncSlider(val) {
+  const v = Math.max(1, parseInt(val) || 1);
+  document.getElementById('sl-pkts').value = Math.min(v, 15000);
+  render();
+}
+
 function render() {
-  const aov = parseFloat(document.getElementById('sl-aov').value);
-  const pkts = parseInt(document.getElementById('sl-pkts').value);
-  document.getElementById('vl-aov').textContent = aov.toFixed(2) + ' €';
-  document.getElementById('vl-pkts').textContent = pkts.toLocaleString('hr');
+  const aov = 35.85;
+  const pkts = parseInt(document.getElementById('inp-pkts').value) || 5051;
+  document.getElementById('sl-pkts').value = Math.min(pkts, 15000);
 
   const results = scenarios.map(s => ({ ...s, ...calc(s, aov, pkts) }));
   const maxProfit = Math.max(...results.map(r => r.profitPoPaketu));
@@ -545,9 +500,9 @@ function render() {
       <div class="metric-cell-sub">${pkts.toLocaleString('hr')} paketa</div>
     </div>
     <div class="metric-cell">
-      <div class="metric-cell-label">Košarica (brutto)</div>
-      <div class="metric-cell-val">${aov.toFixed(2)} €</div>
-      <div class="metric-cell-sub">+ 5.99 € dostava</div>
+      <div class="metric-cell-label">Košarica</div>
+      <div class="metric-cell-val">35.85 €</div>
+      <div class="metric-cell-sub">dostava uključena</div>
     </div>
     <div class="metric-cell">
       <div class="metric-cell-label">Razlika (best vs worst)</div>
@@ -613,7 +568,6 @@ const dateStr = now.toLocaleDateString('hr-HR', { day: '2-digit', month: 'long',
 document.getElementById('gen-date').textContent = dateStr;
 document.getElementById('footer-date').textContent = 'Generirano: ' + dateStr;
 
-document.getElementById('sl-aov').addEventListener('input', render);
 document.getElementById('sl-pkts').addEventListener('input', render);
 render();
 </script>
