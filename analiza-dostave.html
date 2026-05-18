@@ -442,28 +442,25 @@ const scenarios = [
 ];
 
 function calc(s, aov, pkts) {
-  // Kosarca je 35.85€ i ukljucuje sve (dostava je vec unutra)
-  // PDV se odbija samo kod direktnog rada
-  const pdvOdbitak = s.pdvPrihod > 0 ? aov * (s.pdvPrihod / (1 + s.pdvPrihod)) : 0;
-  const prihodNeto = aov - pdvOdbitak; // sto tebi ostaje po paketu
-  const postarinaBrutto = s.postarina * (1 + s.pdvPost);
+  const promet = pkts * aov;
   const isporucenih = pkts * (1 - s.povrat);
-  // Prihod samo od isporucenih paketa
-  const prihodiUkupno = isporucenih * prihodNeto;
-  // Marketing % od kosarice (brutto) za SVE narudzbe
-  const marketingTrosak = pkts * aov * MARKETING;
-  // Nabavna samo za isporucene (vracena roba ide nazad na zalihu)
-  const nabavnaTrosak = isporucenih * aov * NABAVNA;
-  // Postarina za sve pakete
-  const postarinaTrosak = pkts * postarinaBrutto;
-  const profitUkupno = prihodiUkupno - marketingTrosak - nabavnaTrosak - postarinaTrosak;
+  const stvarniPromet = isporucenih * aov;
+  // PDV samo na stvarni promet (isporuceni paketi)
+  const pdv = s.pdvPrihod > 0 ? stvarniPromet * (s.pdvPrihod / (1 + s.pdvPrihod)) : 0;
+  // Reklama na ukupni promet (svi paketi)
+  const marketingTrosak = promet * MARKETING;
+  // Nabavna na stvarni promet (isporuceni)
+  const nabavnaTrosak = stvarniPromet * NABAVNA;
+  // Postarina bez PDV-a za sve pakete
+  const postarinaTrosak = pkts * s.postarina;
+  const profitUkupno = stvarniPromet - pdv - marketingTrosak - nabavnaTrosak - postarinaTrosak;
   return {
-    prihodNeto, postarinaBrutto,
+    prihodNeto: aov, postarinaBrutto: s.postarina, pdv,
     profitPoPaketu: profitUkupno / pkts,
     profitUkupno,
     isporucenih: Math.round(isporucenih),
     vracenih: Math.round(pkts * s.povrat),
-    prihodiUkupno,
+    stvarniPromet,
   };
 }
 
