@@ -141,7 +141,7 @@
   /* Scenario cards */
   .scenario-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, minmax(0,1fr));
     gap: 16px;
     margin-bottom: 2rem;
   }
@@ -436,6 +436,7 @@ const NABAVNA = 0.2821;
 const DOSTAVA_KUPCU = 5.99;
 
 const scenarios = [
+  { id: 'pickpack_novi', label: 'PickPack novi cjenik', tag: 'Posrednik — novi cjenik', povrat: 0.1754, postarina: 3.27, pdvPrihod: 0, pdvPost: 0, color: '#7A4F00', colorBg: '#FDF3E0', badge: 'amber' },
   { id: 'matej',    label: 'PickPack',            tag: 'Posrednik',       povrat: 0.1754, postarina: 4.46, pdvPrihod: 0,    pdvPost: 0,    color: '#8B2020', colorBg: '#F9EAEA', badge: 'red' },
   { id: 'overseas', label: 'Overseas direktno', tag: 'Direktni ugovor', povrat: 0.1511, postarina: 2.78, pdvPrihod: 0.25, pdvPost: 0.25, color: '#1A3F6B', colorBg: '#E8EFF9', badge: 'amber' },
   { id: 'hposta',   label: 'Hrvatska pošta',    tag: 'Direktni ugovor', povrat: 0.1290, postarina: 3.50, pdvPrihod: 0.25, pdvPost: 0.25, color: '#1D6B4A', colorBg: '#EAF4EE', badge: 'green' },
